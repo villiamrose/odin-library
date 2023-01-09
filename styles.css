@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  grid-template-rows: 60px 1fr 80px;
+  grid-template-areas: 
+    "menu menu"
+    "content sidebar"
+    "footer footer";
+}
+
+.menu {
+  grid-area: menu;
+  background-color: lightblue;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: lightgreen;
+}
+
+.content {
+  grid-area: content;
+  background-color: lightpink;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: lightgoldenrodyellow;
+}
+
