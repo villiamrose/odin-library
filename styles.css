@@ -10,24 +10,24 @@ body {
   grid-template-columns: 1fr 250px;
   grid-template-rows: 60px 1fr 80px;
   grid-template-areas: 
-    "menu menu"
+    "header header"
     "content sidebar"
-    "footer footer";
+    "menu menu";
 }
 
-.menu {
+.header {
   background-color: lightblue;
-  grid-area: menu;
+  grid-area: header;
   display: flex;
   align-items: center;
   padding: 0px 40px 0px 20px;
 }
 
-.menu .actions {
+.header .actions {
   margin-left: auto;
 }
 
-.menu .info {
+.header .info {
   height: 40px;
 }
 
@@ -41,8 +41,8 @@ body {
   background-color: lightpink;
 }
 
-.footer {
-  grid-area: footer;
+.menu {
+  grid-area: menu;
   background-color: lightgoldenrodyellow;
 }
 
