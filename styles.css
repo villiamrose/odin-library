@@ -8,12 +8,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Poppins";
 }
 
 body {
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 250px;
+  grid-template-columns: 1fr 260px;
   grid-template-rows: 60px 1fr 80px;
   grid-template-areas: 
     "header header"
@@ -37,11 +38,11 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .action img {
-  height: 40px;
+  height: 30px;
 }
 
 .content::-webkit-scrollbar {
@@ -106,7 +107,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 20px;
+  gap: 30px;
   padding: 0px 50px
 }
 
