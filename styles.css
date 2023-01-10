@@ -29,11 +29,18 @@ body {
   padding: 0px 40px 0px 20px;
 }
 
-.header .actions {
+.header .action {
   margin-left: auto;
 }
 
-.header .info {
+.action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1.5rem;
+}
+
+.action img {
   height: 40px;
 }
 
@@ -94,7 +101,12 @@ body {
 }
 
 .menu {
-  grid-area: menu;
   background-color: lightgoldenrodyellow;
+  grid-area: menu;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 0px 50px
 }
 
