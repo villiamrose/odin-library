@@ -16,8 +16,19 @@ body {
 }
 
 .menu {
-  grid-area: menu;
   background-color: lightblue;
+  grid-area: menu;
+  display: flex;
+  align-items: center;
+  padding: 0px 40px 0px 20px;
+}
+
+.menu .actions {
+  margin-left: auto;
+}
+
+.menu .info {
+  height: 40px;
 }
 
 .sidebar {
