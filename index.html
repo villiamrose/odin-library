@@ -60,7 +60,40 @@
       </div>
     </div>
   </div>
-  <div class="sidebar"></div>
+  <div class="sidebar">
+    <img class="cover" src="./assets/cover.jpg" alt="Book cover">
+    <form class="details">
+      <legend><h3>Edit details</h3></legend>
+      <div class="row">
+        <label for="cover">Cover URL:</label>
+        <input type="url" id="cover" name="cover">
+      </div>
+      <div class="row">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+      </div>
+      <div class="row">
+        <label for="authro">Author:</label>
+        <input type="text" id="author" name="author">
+      </div>
+      <div class="row compact">
+        <div class="cell">
+          <label for="pages">Pages:</label>
+          <input type="number" id="pages" name="pages" min="5" step="1" value="5">
+        </div>
+        <div class="cell">
+          <fieldset>
+            <legend>Done reading:</legend>
+            <label><input type="radio" name="isRead" value="true"> Yes</label>
+            <label><input type="radio" name="isRead" value="false" checked> No</label>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row">
+        <button type="button">Save</button>
+      </div>
+    </form>
+  </div>
   <div class="menu">
     <div class="action">
       <img class="delete" src="./assets/delete.svg" alt="Help">

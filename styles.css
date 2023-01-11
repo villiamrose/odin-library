@@ -14,7 +14,7 @@
 body {
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 260px;
+  grid-template-columns: 1fr 280px;
   grid-template-rows: 60px 1fr 80px;
   grid-template-areas: 
     "header header"
@@ -97,8 +97,76 @@ body {
 }
 
 .sidebar {
-  grid-area: sidebar;
   background-color: lightgreen;
+  grid-area: sidebar;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.sidebar .cover {
+  object-fit: cover;
+  height: 145px;
+}
+
+.sidebar .details {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.row {
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row input {
+  margin-left: 8px;
+  padding: 3px;
+}
+
+.row input[type="text"],
+.row input[type="url"],
+.row input[type="number"] {
+  appearance: none;
+}
+
+.row label,
+.row input[type="text"],
+.row input[type="url"] {
+  width: 95%;
+  display: block;
+}
+
+.row input[type="number"] {
+  width: 80%;
+}
+
+.row fieldset {
+  border: none;
+}
+
+.row fieldset label {
+  display: inline;
+  padding: 0px 5px;
+  font-size: 1rem;
+}
+
+.compact {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cell {
+  flex: 1;
+}
+
+.row button {
+  margin: 10px auto;
+  padding: 3px 30px;
 }
 
 .menu {
