@@ -26,22 +26,22 @@ class Screen {
   displayBooks(books) {
     const content = document.querySelector(".content");
     for(const book of books) {
-      const card = this.buildCard(book);
+      const card = this.#buildCard(book);
       content.append(card);
     }
   }
 
-  buildCard(book) {
-    const indicator = this.buildIndicator(book);
-    const cover = this.buildCover(book);
-    const details = this.buildDetails(book);
+  #buildCard(book) {
+    const indicator = this.#buildIndicator(book);
+    const cover = this.#buildCover(book);
+    const details = this.#buildDetails(book);
     const card = document.createElement("div");
     card.className = "card";
     card.append(indicator, cover, details);
     return card;
   }
 
-  buildIndicator(book) {
+  #buildIndicator(book) {
     if (!book.isRead) return document.createElement("span");
     const indicator = document.createElement("img");
     indicator.className = "indicator";
@@ -50,7 +50,7 @@ class Screen {
     return indicator;
   }
 
-  buildCover(book) {
+  #buildCover(book) {
     const cover = document.createElement("img");
     cover.className = "cover";
     cover.src = book.cover;
@@ -58,7 +58,7 @@ class Screen {
     return cover;
   }
 
-  buildDetails(book) {
+  #buildDetails(book) {
     const title = document.createElement("p");
     title.className = "title";
     title.textContent = book.title;
