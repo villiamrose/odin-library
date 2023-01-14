@@ -109,6 +109,8 @@ body {
   color: var(--card-details-txt);
   bottom: 40px;
   padding: 10px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .details .author {
