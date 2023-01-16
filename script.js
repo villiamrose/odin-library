@@ -27,8 +27,25 @@ class Screen {
     const content = document.querySelector(".content");
     for(const book of books) {
       const card = this.#buildCard(book);
+      card.addEventListener("click", this);
       content.append(card);
     }
+  }
+
+  handleEvent(event) {
+    if (event.type === "click") {
+      const target = event.currentTarget;
+      console.log(target.className);
+      if (target.className === "card") {
+        const selected = document.querySelector(".content .selected");
+        if (selected) {
+          selected.classList.remove("selected");
+        }
+        target.classList.add("selected");
+      } else if (target.className === "card selected") {
+        target.classList.remove("selected");
+      }
+    };
   }
 
   #buildCard(book) {
