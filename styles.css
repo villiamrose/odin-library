@@ -36,6 +36,10 @@ body {
   z-index: 3;
 }
 
+.header .logo {
+  cursor: pointer;
+}
+
 .header .action {
   margin-left: auto;
 }
