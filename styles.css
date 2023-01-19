@@ -1,5 +1,6 @@
 :root {
   --header: aliceblue;
+  --sidebar: aliceblue;
   --card: whitesmoke;
   --card-details-bg: rgba(0, 0, 0, 60%);
   --card-details-txt: white;
@@ -129,12 +130,14 @@ body {
 }
 
 .sidebar {
-  background-color: lightgreen;
+  background-color: var(--sidebar);
   grid-area: sidebar;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   padding: 20px 10px;
+  box-shadow: 5px 0px 10px;
+  z-index: 1;
 }
 
 .sidebar .cover {
@@ -208,6 +211,7 @@ body {
   align-items: center;
   justify-content: flex-end;
   gap: 30px;
-  padding: 0px 50px
+  padding: 0px 50px;
+  z-index: 2;
 }
 
