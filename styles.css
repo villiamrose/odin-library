@@ -1,6 +1,7 @@
 :root {
   --header: aliceblue;
   --sidebar: aliceblue;
+  --menu: aliceblue;
   --card: whitesmoke;
   --card-details-bg: rgba(0, 0, 0, 60%);
   --card-details-txt: white;
@@ -205,7 +206,7 @@ body {
 }
 
 .menu {
-  background-color: lightgoldenrodyellow;
+  background-color: var(--menu);
   grid-area: menu;
   display: flex;
   align-items: center;
@@ -213,5 +214,6 @@ body {
   gap: 30px;
   padding: 0px 50px;
   z-index: 2;
+  box-shadow: 0px 5px 10px;
 }
 
