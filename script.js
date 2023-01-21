@@ -46,8 +46,6 @@ class Screen {
           selected.classList.remove("selected");
         }
         target.classList.add("selected");
-      } else if (target.className === "card selected") {
-        target.classList.remove("selected");
       }
     };
   }
