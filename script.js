@@ -25,8 +25,12 @@ class Book {
 class Screen {
   displayBooks(books) {
     const content = document.querySelector(".content");
-    for(const book of books) {
-      const card = this.#buildCard(book);
+    for(const i in books) {
+      const card = this.#buildCard(books[i]);
+      console.log(i == 0);
+      if(i == 0) {
+        card.classList.add("selected");
+      }
       card.addEventListener("click", this);
       content.append(card);
     }
