@@ -8,7 +8,7 @@
   --card-details-txt: white;
   --action-hovered: rgba(0, 0, 0, 20%);
   --action-clicked: rgba(0, 0, 0, 15%);
-  --card-selected: skyblue;
+  --card-selected: cornflowerblue;
 } 
 
 * {
