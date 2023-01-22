@@ -6,9 +6,17 @@ class Library {
         this.books.push(book);
       }
     }
+    this.screen = new Screen(this);
   }
   addBook(book) {
     this.books.push(book);
+  }
+  getBook(i) {
+    if(typeof i === "number") {
+      return this.books[i];
+    } else {
+      return this.books;
+    }
   }
 }
 
@@ -23,17 +31,18 @@ class Book {
 }
 
 class Screen {
-  displayBooks(books) {
+  constructor(library) {
     const content = document.querySelector(".content");
+    const books = library.getBook();
     for(const i in books) {
       const card = this.#buildCard(books[i]);
-      console.log(i == 0);
       if(i == 0) {
         card.classList.add("selected");
       }
       card.addEventListener("click", this);
       content.append(card);
     }
+    this.library = library;
   }
 
   handleEvent(event) {
@@ -92,7 +101,6 @@ class Screen {
 }
 
 
-const screen = new Screen();
 const books = [
   new Book(
     "Alice's Adventures in Wonderland", 
@@ -123,5 +131,4 @@ const books = [
     "https://github.com/standardebooks/jules-verne_the-mysterious-island_stephen-w-white/blob/master/images/cover.jpg?raw=true"
   )
 ];
-
-screen.displayBooks(books);
+const library = new Library(books);
