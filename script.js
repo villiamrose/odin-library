@@ -1,21 +1,29 @@
 class Library {
-  books = [];
+  #nextId = 0;
+  #books = [];
   constructor(books) {
     if(books) {
-      for (let book of books) {
-        this.books.push(book);
+      for (const i in books) {
+        const book = books[i];
+        book.id = i + 1;
+        this.#books.push(book);
       }
     }
+    this.#nextId = books.length + 1;
     this.screen = new Screen(this);
   }
   addBook(book) {
-    this.books.push(book);
+    book.id = this.#nextId;
+    this.#books.push(book);
+    const card = this.screen.addBook(book);
+    this.screen.selectCard(card);
+    this.#nextId++;
   }
   getBook(i) {
     if(typeof i === "number") {
-      return this.books[i];
+      return this.#books[i];
     } else {
-      return this.books;
+      return this.#books;
     }
   }
 }
@@ -32,29 +40,37 @@ class Book {
 
 class Screen {
   constructor(library) {
-    const content = document.querySelector(".content");
+    this.library = library;
     const books = library.getBook();
     for(const i in books) {
-      const card = this.#buildCard(books[i]);
+      const card = this.addBook(books[i]);
       if(i == 0) {
-        card.classList.add("selected");
+        this.selectCard(card);
       }
-      card.addEventListener("click", this);
-      content.append(card);
     }
-    this.library = library;
+  }
+
+  addBook(book) {
+    const content = document.querySelector(".content");
+    const card = this.#buildCard(book);
+    card.addEventListener("click", this);
+    content.append(card);
+    return card;
+  }
+
+  selectCard(card) {
+    const selected = document.querySelector(".content .selected");
+    if (selected) {
+      selected.classList.remove("selected");
+    }
+    card.classList.add("selected");
   }
 
   handleEvent(event) {
     if (event.type === "click") {
       const target = event.currentTarget;
-      console.log(target.className);
       if (target.className === "card") {
-        const selected = document.querySelector(".content .selected");
-        if (selected) {
-          selected.classList.remove("selected");
-        }
-        target.classList.add("selected");
+        this.selectCard(target);
       }
     };
   }
