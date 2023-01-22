@@ -2,7 +2,8 @@
   --header: aliceblue;
   --sidebar: aliceblue;
   --menu: aliceblue;
-  --card: whitesmoke;
+  --content: aliceblue;
+  --card: dimgray;
   --card-details-bg: rgba(0, 0, 0, 60%);
   --card-details-txt: white;
   --action-hovered: rgba(0, 0, 0, 20%);
@@ -73,7 +74,7 @@ body {
 }
 
 .content {
-  background-color: lightpink;
+  background-color: var(--content);
   grid-area: content;
   padding: 20px;
   display: flex;
