@@ -22,7 +22,7 @@ class Library {
   }
   getBook(i) {
     if(typeof i === "number") {
-      return this.#books.filter(book => book.id === i);
+      return this.#books.filter(book => book.id === i)[0];
     } else {
       return this.#books;
     }
@@ -30,6 +30,7 @@ class Library {
 }
 
 class Book {
+  cover = "";
   constructor(title, author, pages, isRead, cover) {
     this.title = title,
     this.author = author,
@@ -60,12 +61,36 @@ class Screen {
   }
 
   selectCard(card) {
+    this.displayCardDetails(card);
     const selected = document.querySelector(".content .selected");
     if (selected) {
       selected.classList.remove("selected");
-    }
-    card.classList.add("selected");
+    };
+    card.classList.add("selected")
     return card;
+  }
+
+  displayCardDetails(card) {
+    const cardId = parseInt(card.id);
+    const book = this.library.getBook(cardId);
+    const coverImg = document.getElementById("cover-img");
+    coverImg.src = book.cover;
+    const cover = document.getElementById("cover");
+    cover.value = book.cover;
+    const title = document.getElementById("title");
+    title.value = book.title;
+    const author = document.getElementById("author");
+    author.value = book.author;
+    const pages = document.getElementById("pages");
+    pages.value = book.pages;
+    const isReadTrue = document.getElementById("true");
+    const isReadFalse = document.getElementById("false");
+    if(book.isRead) {
+      isReadTrue.checked = true;
+    } else {
+      isReadFalse.checked = true;
+    }
+
   }
 
   handleEvent(event) {
