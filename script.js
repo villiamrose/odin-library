@@ -5,7 +5,7 @@ class Library {
     if(books) {
       for (const i in books) {
         const book = books[i];
-        book.id = i + 1;
+        book.id = parseInt(i) + 1;
         this.#books.push(book);
       }
     }
@@ -17,11 +17,12 @@ class Library {
     this.#books.push(book);
     const card = this.screen.addBook(book);
     this.screen.selectCard(card);
-    this.#nextId++;
+    this.#nextId;
+    return book;
   }
   getBook(i) {
     if(typeof i === "number") {
-      return this.#books[i];
+      return this.#books.filter(book => book.id === i);
     } else {
       return this.#books;
     }
@@ -64,6 +65,7 @@ class Screen {
       selected.classList.remove("selected");
     }
     card.classList.add("selected");
+    return card;
   }
 
   handleEvent(event) {
@@ -81,6 +83,7 @@ class Screen {
     const details = this.#buildDetails(book);
     const card = document.createElement("div");
     card.className = "card";
+    card.id = book.id;
     card.append(indicator, cover, details);
     return card;
   }
