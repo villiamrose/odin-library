@@ -41,6 +41,7 @@ class Book {
 }
 
 class Screen {
+  #selectedCardId = null;
   constructor(library) {
     this.library = library;
     const books = library.getBook();
@@ -50,6 +51,12 @@ class Screen {
         this.selectCard(card);
       }
     }
+    this.initializeActions();
+  }
+
+  initializeActions() {
+    const actions = document.querySelectorAll(".action");
+    actions.forEach(action => action.addEventListener("click", this));
   }
 
   addBook(book) {
@@ -67,6 +74,7 @@ class Screen {
       selected.classList.remove("selected");
     };
     card.classList.add("selected")
+    this.#selectedCardId = card.id;
     return card;
   }
 
@@ -98,6 +106,12 @@ class Screen {
       const target = event.currentTarget;
       if (target.className === "card") {
         this.selectCard(target);
+      } else if (target.className === "action delete"){
+        console.log("delete");
+      } else if (target.className === "action add"){
+        console.log("add");
+      } else if (target.className === "action info"){
+        console.log("info");
       }
     };
   }
