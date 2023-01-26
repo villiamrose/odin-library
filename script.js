@@ -20,11 +20,17 @@ class Library {
     this.#nextId;
     return book;
   }
-  getBook(i) {
-    if(typeof i === "number") {
-      return this.#books.filter(book => book.id === i)[0];
+  getBook(id) {
+    if(typeof id === "number") {
+      return this.#books.filter(book => book.id === id)[0];
     } else {
       return this.#books;
+    }
+  }
+  deleteBook(id) {
+    const index = this.#books.findIndex(book => book.id === id);
+    if (index !== -1) {
+      this.#books.splice(index, 1);
     }
   }
 }
@@ -107,13 +113,23 @@ class Screen {
       if (target.className === "card") {
         this.selectCard(target);
       } else if (target.className === "action delete"){
-        console.log("delete");
+        this.deleteCard(this.#selectedCardId);
       } else if (target.className === "action add"){
         console.log("add");
       } else if (target.className === "action info"){
         console.log("info");
       }
     };
+  }
+
+  deleteCard(cardId) {
+    this.library.deleteBook(cardId);
+    const card = document.querySelector(`[id='${cardId}']`);
+    const sibling = card.nextElementSibling ? card.nextElementSibling : card.previousElementSibling;
+    card.remove();
+    if(sibling) {
+      this.selectCard(sibling);
+    }
   }
 
   #buildCard(book) {
