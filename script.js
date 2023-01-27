@@ -27,6 +27,11 @@ class Library {
       return this.#books;
     }
   }
+  getDefaultBook() {
+    const book = new Book('Book', 'Author', 5, false, './assets/cover.jpg');
+    book.id = 0;
+    return book;
+  }
   deleteBook(id) {
     const index = this.#books.findIndex(book => book.id === id);
     if (index !== -1) {
@@ -60,6 +65,21 @@ class Screen {
     this.initializeActions();
   }
 
+  handleEvent(event) {
+    if (event.type === "click") {
+      const target = event.currentTarget;
+      if (target.className === "card") {
+        this.selectCard(target);
+      } else if (target.className === "action delete"){
+        this.deleteCard(this.#selectedCardId);
+      } else if (target.className === "action add"){
+        this.addCard();
+      } else if (target.className === "action info"){
+        console.log("info");
+      }
+    };
+  }
+
   initializeActions() {
     const actions = document.querySelectorAll(".action");
     actions.forEach(action => action.addEventListener("click", this));
@@ -71,6 +91,12 @@ class Screen {
     card.addEventListener("click", this);
     content.append(card);
     return card;
+  }
+
+  addCard() {
+    const emptyCard = document.querySelector(`[id='0']`);
+    const card = emptyCard ? emptyCard : this.addBook(this.library.getDefaultBook());
+    this.selectCard(card);
   }
 
   selectCard(card) {
@@ -86,7 +112,8 @@ class Screen {
 
   displayCardDetails(card) {
     const cardId = parseInt(card.id);
-    const book = this.library.getBook(cardId);
+    const libraryBook = this.library.getBook(cardId);
+    const book = libraryBook ? libraryBook : this.library.getDefaultBook();
     const coverImg = document.getElementById("cover-img");
     coverImg.src = book.cover;
     const cover = document.getElementById("cover");
@@ -105,21 +132,6 @@ class Screen {
       isReadFalse.checked = true;
     }
 
-  }
-
-  handleEvent(event) {
-    if (event.type === "click") {
-      const target = event.currentTarget;
-      if (target.className === "card") {
-        this.selectCard(target);
-      } else if (target.className === "action delete"){
-        this.deleteCard(this.#selectedCardId);
-      } else if (target.className === "action add"){
-        console.log("add");
-      } else if (target.className === "action info"){
-        console.log("info");
-      }
-    };
   }
 
   deleteCard(cardId) {
