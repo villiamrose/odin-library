@@ -136,6 +136,8 @@ class Screen {
     card.remove();
     if(sibling) {
       this.selectCard(sibling);
+    } else {
+      this.addCard();
     }
   }
 
