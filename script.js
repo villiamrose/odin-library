@@ -1,23 +1,18 @@
 class Library {
-  #nextId = 0;
+  #nextId = 1;
   #books = [];
   constructor(books) {
     if(books) {
-      for (const i in books) {
-        const book = books[i];
-        book.id = parseInt(i) + 1;
-        this.#books.push(book);
+      for (const book of books) {
+        this.addBook(book);
       }
     }
-    this.#nextId = books.length + 1;
     this.screen = new Screen(this);
   }
   addBook(book) {
     book.id = this.#nextId;
     this.#books.push(book);
-    const card = this.screen.addBook(book);
-    this.screen.selectCard(card);
-    this.#nextId;
+    this.#nextId++;
     return book;
   }
   getBook(id) {
@@ -27,7 +22,7 @@ class Library {
       return this.#books;
     }
   }
-  getDefaultBook() {
+  getBlankBook() {
     const book = new Book('Book', 'Author', 5, false, './assets/cover.jpg');
     book.id = 0;
     return book;
@@ -57,7 +52,7 @@ class Screen {
     this.library = library;
     const books = library.getBook();
     for(const i in books) {
-      const card = this.addBook(books[i]);
+      const card = this.insertCard(books[i]);
       if(i == 0) {
         this.selectCard(card);
       }
@@ -85,7 +80,7 @@ class Screen {
     actions.forEach(action => action.addEventListener("click", this));
   }
 
-  addBook(book) {
+  insertCard(book) {
     const content = document.querySelector(".content");
     const card = this.#buildCard(book);
     card.addEventListener("click", this);
@@ -95,7 +90,7 @@ class Screen {
 
   addCard() {
     const emptyCard = document.querySelector(`[id='0']`);
-    const card = emptyCard ? emptyCard : this.addBook(this.library.getDefaultBook());
+    const card = emptyCard ? emptyCard : this.insertCard(this.library.getBlankBook());
     this.selectCard(card);
   }
 
@@ -113,7 +108,7 @@ class Screen {
   displayCardDetails(card) {
     const cardId = parseInt(card.id);
     const libraryBook = this.library.getBook(cardId);
-    const book = libraryBook ? libraryBook : this.library.getDefaultBook();
+    const book = libraryBook ? libraryBook : this.library.getBlankBook();
     const coverImg = document.getElementById("cover-img");
     coverImg.src = book.cover;
     const cover = document.getElementById("cover");
