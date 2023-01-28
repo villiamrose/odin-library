@@ -23,7 +23,7 @@ class Library {
     }
   }
   getBlankBook() {
-    const book = new Book('Book', 'Author', 5, false, './assets/cover.jpg');
+    const book = new Book('Book', 'Author', 5, false, null);
     book.id = 0;
     return book;
   }
@@ -110,7 +110,7 @@ class Screen {
     const libraryBook = this.library.getBook(cardId);
     const book = libraryBook ? libraryBook : this.library.getBlankBook();
     const coverImg = document.getElementById("cover-img");
-    coverImg.src = book.cover;
+    coverImg.src = book.cover ? book.cover : "./assets/cover.jpg";
     const cover = document.getElementById("cover");
     cover.value = book.cover;
     const title = document.getElementById("title");
@@ -164,7 +164,7 @@ class Screen {
   #buildCover(book) {
     const cover = document.createElement("img");
     cover.className = "cover";
-    cover.src = book.cover;
+    cover.src = book.cover ? book.cover : "./assets/cover.jpg";
     cover.alt = book.title;
     return cover;
   }
