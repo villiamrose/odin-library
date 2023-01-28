@@ -23,7 +23,7 @@ class Library {
     }
   }
   getBlankBook() {
-    const book = new Book('Book', 'Author', 5, false, null);
+    const book = new Book("", "", 0, false, "");
     book.id = 0;
     return book;
   }
@@ -57,7 +57,7 @@ class Screen {
         this.selectCard(card);
       }
     }
-    this.initializeActions();
+    this.#initializeButtons();
   }
 
   handleEvent(event) {
@@ -71,13 +71,39 @@ class Screen {
         this.addCard();
       } else if (target.className === "action info"){
         console.log("info");
+      } else if (target.className === "save") {
+        this.saveDetails();
       }
     };
   }
 
-  initializeActions() {
+  #initializeButtons() {
     const actions = document.querySelectorAll(".action");
     actions.forEach(action => action.addEventListener("click", this));
+    const save = document.querySelector(".save");
+    save.addEventListener("click", this);
+  }
+
+  addCard() {
+    const emptyCard = document.querySelector(`[id='0']`);
+    const card = emptyCard ? emptyCard : this.insertCard(this.library.getBlankBook());
+    this.selectCard(card);
+  }
+
+  deleteCard(cardId) {
+    this.library.deleteBook(cardId);
+    const card = document.querySelector(`[id='${cardId}']`);
+    const sibling = card.nextElementSibling ? card.nextElementSibling : card.previousElementSibling;
+    card.remove();
+    if(sibling) {
+      this.selectCard(sibling);
+    } else {
+      this.addCard();
+    }
+  }
+
+  saveDetails() {
+    console.log(this.#selectedCardId);
   }
 
   insertCard(book) {
@@ -86,12 +112,6 @@ class Screen {
     card.addEventListener("click", this);
     content.append(card);
     return card;
-  }
-
-  addCard() {
-    const emptyCard = document.querySelector(`[id='0']`);
-    const card = emptyCard ? emptyCard : this.insertCard(this.library.getBlankBook());
-    this.selectCard(card);
   }
 
   selectCard(card) {
@@ -129,18 +149,6 @@ class Screen {
 
   }
 
-  deleteCard(cardId) {
-    this.library.deleteBook(cardId);
-    const card = document.querySelector(`[id='${cardId}']`);
-    const sibling = card.nextElementSibling ? card.nextElementSibling : card.previousElementSibling;
-    card.remove();
-    if(sibling) {
-      this.selectCard(sibling);
-    } else {
-      this.addCard();
-    }
-  }
-
   #buildCard(book) {
     const indicator = this.#buildIndicator(book);
     const cover = this.#buildCover(book);
@@ -172,10 +180,10 @@ class Screen {
   #buildDetails(book) {
     const title = document.createElement("p");
     title.className = "title";
-    title.textContent = book.title;
+    title.textContent = book.title ? book.title : "Title";
     const author = document.createElement("p");
     author.className = "author";
-    author.textContent = book.author;
+    author.textContent = book.author ? book.author : "Author";
     const details = document.createElement("div");
     details.className = "details";
     details.append(title, author);
