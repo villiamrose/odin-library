@@ -4,6 +4,7 @@
   --menu: #FFF2F2;
   --content: #FFF2F2;
   --card: #E5E0FF;
+  --about: #FFF2F2;
   --card-details-bg: rgba(0, 0, 0, 60%);
   --card-details-txt: white;
   --action-hovered: rgba(0, 0, 0, 20%);
@@ -223,3 +224,28 @@ body {
   box-shadow: 0px 5px 10px;
 }
 
+.mask {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 70%);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+}
+
+.about {
+  background-color: var(--about);
+  border-radius: 20px;
+  width: 300px;
+  height: 150px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}

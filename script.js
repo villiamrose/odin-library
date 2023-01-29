@@ -78,7 +78,9 @@ class Screen {
       } else if (target.className === "action add"){
         this.addCard();
       } else if (target.className === "action info"){
-        console.log("info");
+        this.showInfo();
+      } else if (target.className === "action close"){
+        this.closeInfo();
       } else if (target.className === "save") {
         this.saveDetails();
       }
@@ -90,6 +92,16 @@ class Screen {
     actions.forEach(action => action.addEventListener("click", this));
     const save = document.querySelector(".save");
     save.addEventListener("click", this);
+  }
+
+  showInfo() {
+    const mask = document.querySelector(".mask");
+    mask.classList.remove("hidden");
+  }
+
+  closeInfo() {
+    const mask = document.querySelector(".mask");
+    mask.classList.add("hidden");
   }
 
   addCard() {
