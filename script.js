@@ -15,6 +15,14 @@ class Library {
     this.#nextId++;
     return book;
   }
+  saveBook(id, book) {
+    book.id = parseInt(id);
+    const index = this.#books.findIndex(b => b.id === parseInt(id));
+    if(index !== -1) {
+      this.#books[index] = book;
+    }
+    return book;
+  }
   getBook(id) {
     if(typeof id === "number") {
       return this.#books.filter(book => book.id === id)[0];
@@ -23,7 +31,7 @@ class Library {
     }
   }
   getBlankBook() {
-    const book = new Book("", "", 0, false, "");
+    const book = new Book("", "", 5, false, "");
     book.id = 0;
     return book;
   }
@@ -92,7 +100,7 @@ class Screen {
 
   deleteCard(cardId) {
     this.library.deleteBook(cardId);
-    const card = document.querySelector(`[id='${cardId}']`);
+    const card = this.getCard(cardId);
     const sibling = card.nextElementSibling ? card.nextElementSibling : card.previousElementSibling;
     card.remove();
     if(sibling) {
@@ -102,8 +110,59 @@ class Screen {
     }
   }
 
+  getCard(cardId) {
+    return document.querySelector(`[id='${cardId}']`);
+  }
+
   saveDetails() {
-    console.log(this.#selectedCardId);
+    const id = parseInt(this.#selectedCardId);
+    let card = this.getCard(id);
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const isRead = document.getElementById("true").checked;
+    const cover = document.getElementById("cover").value;
+    let book = new Book(title, author, pages, isRead, cover);
+    const isInputValid = this.validateDetails(book);
+    if(isInputValid) {
+      if(id === 0) {
+        book = this.library.addBook(book);
+      } else {
+        book = this.library.saveBook(id, book);
+      }
+      this.#selectedCardId = book.id;
+      card = this.refreshCard(card, book);
+      this.displayCardDetails(card);
+    }
+  }
+
+  refreshCard(card, book) {
+    card.id = book.id;
+    const title = card.querySelector(".title");
+    const author = card.querySelector(".author");
+    const cover = card.querySelector(".cover");
+    title.textContent = book.title;
+    author.textContent = book.author;
+    cover.src = book.cover ? book.cover : "./assets/cover.jpg";
+    let indicator = card.querySelector(".indicator");
+    indicator.remove();
+    indicator = this.#buildIndicator(book);
+    card.append(indicator);
+    return card;
+  }
+
+  validateDetails(book) {
+    const titleLabel = document.querySelector("#title-label");
+    const authorLabel = document.querySelector("#author-label");
+    const isTitleValid = book.title !== "";
+    const isAuthorValid = book.author !== "";
+    if(!isTitleValid) {
+      titleLabel.classList.add("warn");
+    }
+    if(!isAuthorValid) {
+      authorLabel.classList.add("warn");
+    }
+    return isTitleValid && isAuthorValid;
   }
 
   insertCard(book) {
@@ -146,7 +205,11 @@ class Screen {
     } else {
       isReadFalse.checked = true;
     }
-
+    
+    const titleLabel = document.querySelector("#title-label");
+    const authorLabel = document.querySelector("#author-label");
+    titleLabel.classList.remove("warn");
+    authorLabel.classList.remove("warn");
   }
 
   #buildCard(book) {
@@ -161,7 +224,11 @@ class Screen {
   }
 
   #buildIndicator(book) {
-    if (!book.isRead) return document.createElement("span");
+    if (!book.isRead) {
+      const indicator = document.createElement("span");
+      indicator.className = "indicator";
+      return indicator;
+    };
     const indicator = document.createElement("img");
     indicator.className = "indicator";
     indicator.src = "./assets/check.svg";

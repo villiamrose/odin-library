@@ -102,6 +102,11 @@ body {
   border: 5px solid var(--card-selected);
 }
 
+.warn {
+  color: red;
+  font-weight: bold;
+}
+
 .card .cover {
   position: absolute;
   object-fit: cover;
