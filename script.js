@@ -84,7 +84,7 @@ class Screen {
       } else if (target.className === "save") {
         this.saveDetails();
       }
-    };
+    }
   }
 
   #initializeButtons() {
