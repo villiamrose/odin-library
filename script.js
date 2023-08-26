@@ -134,8 +134,10 @@ class Screen {
     const pages = document.getElementById("pages").value;
     const isRead = document.getElementById("true").checked;
     const cover = document.getElementById("cover").value;
+    const detailsForm = document.querySelector("form.details");
     let book = new Book(title, author, pages, isRead, cover);
     const isInputValid = this.validateDetails(book);
+    detailsForm.reportValidity();
     if(isInputValid) {
       if(id === 0) {
         book = this.library.addBook(book);
@@ -164,15 +166,23 @@ class Screen {
   }
 
   validateDetails(book) {
+    const titleField = document.getElementById("title");
     const titleLabel = document.querySelector("#title-label");
+    const authorField = document.getElementById('author');
     const authorLabel = document.querySelector("#author-label");
     const isTitleValid = book.title !== "";
     const isAuthorValid = book.author !== "";
     if(!isTitleValid) {
       titleLabel.classList.add("warn");
+      titleField.setCustomValidity('Title is required');
+    } else {
+      titleField.setCustomValidity('');
     }
     if(!isAuthorValid) {
       authorLabel.classList.add("warn");
+      authorField.setCustomValidity('Author is required');
+    } else {
+      authorField.setCustomValidity('');
     }
     return isTitleValid && isAuthorValid;
   }
